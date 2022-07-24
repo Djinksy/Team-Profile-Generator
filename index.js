@@ -6,7 +6,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
 const fs = require('fs');
-const inquirer = require('inquirer');
+const inquirer = require('inquirer'); 
 
 const teamArray = [];
 
@@ -35,7 +35,7 @@ const newManager = () => {
     ])
     .then(managerInput => {
         const {name, id, email, officeNumber} = managerInput;
-        const manager = addManager (name,id,email,officeNumber);
+        const manager = new Manager (name,id,email,officeNumber);
 
         teamArray.push(manager);
         console.log(manager);
@@ -68,7 +68,7 @@ const addEmployee = () => {
         {
             type:'input',
             name:'email',
-            message:'Please enter the employee email',
+            message:"Please enter the employee's email",
         },
         {
             type:'input',
@@ -79,8 +79,58 @@ const addEmployee = () => {
             type:'input',
             name:'school',
             message:"Please enter the intern's school",
-            //when: (input) => input.role === "Intern",
+            when: (input) => input.role === "Intern",
         },
+        {
+            type:'confirm',
+            name:'confirmAddEmployee',
+            message:'Would you like to add another employee?',
+            default:false
+        }
 
     ])
-}
+    .then(employeeData => {
+        let{ name, id, email, role, github, school, confirmAddEmployee} = employeeData;
+        let employee;
+
+        if (role === "Engineer") {
+            employee = new Engineer (name, id, email, github);
+
+            console.log(employee);
+        } else if (role === "Intern") {
+            employee = new Intern (name, id, email, school);
+            console.log(employee);
+        }
+        teamArray.push(employee);
+
+        if(confirmAddEmployee) {
+            return addEmployee(teamArray);
+        } else {
+            return teamArray;
+        }
+        
+    })
+};
+
+const writeFile = data => {
+    fs.writeFile('./dist/indexhtml', data, err => {
+        if(err) {
+            console.log(err);
+            return;
+        } else {
+            console.log("Your new employee data has been a success")
+        }
+    })
+};
+
+newManager()
+.then(addEmployee)
+.then(teamArray => {
+    return generateHTML(teamArray);
+}) 
+.then(pageHTML => {
+    return writeFile(pageHTML);
+})
+.catch(err => {
+    console.log(err);
+});

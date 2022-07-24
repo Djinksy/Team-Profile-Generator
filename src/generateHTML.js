@@ -56,7 +56,7 @@ const generateIntern = function (intern) {
       </div>`;
 }
 // pushing info to page
-generateHtmlPage = (data) => {
+generateHTML = (data) => {
     pageArray = [];
 
     for (let i=0; i < data.length; i++) {
