@@ -14,6 +14,9 @@ I WANT to generate a webpage that displays my team's basic info
 SO THAT I have quick access to their emails and GitHub profiles
 ```
 
+### Website Screenshots: 
+![Main Screen](./assests/screenshot.png)
+
 
 # Table of Contents
     
@@ -39,7 +42,9 @@ Inquirer package `npm install --save inquirer`
 
 Jest package `npm i jest`
 
-In the command line of index.js run : `node index.js`
+Run in the command line `npm run test`
+
+Then in the command line of index.js run : `node index.js`
 
 Helpful info that saved me time with inquirer: Inquirer v9 and higher are native esm modules, this mean you cannot use the commonjs syntax require('inquirer') anymore.
 
@@ -47,7 +52,7 @@ Helpful info that saved me time with inquirer: Inquirer v9 and higher are native
 
 Team profile generator allows companies to add and update employee roles, emails, employee ids, office numbers, github and what school there interns attended. 
 
-(add demo)
+[A quick demonstration on Team Profile Generator](https://drive.google.com/file/d/1vCfxYnWZ5REInQazN_btnAqmMmNZ_0cX/view?usp=sharing) 
 
 # License
 
